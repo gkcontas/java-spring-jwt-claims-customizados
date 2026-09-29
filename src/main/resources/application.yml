@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: tenant-auth
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tenantauth
+    username: tenantauth
+    password: tenantauth
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+app:
+  jwt:
+    # Demonstration only. In a real deployment this comes from a secret manager and is
+    # never committed — a signing key in version control is the whole authentication
+    # system in the hands of anyone who can read the repository.
+    secret: "change-me-this-demo-secret-must-be-long-enough-for-hs512-signing-0123456789"
+    # Short on purpose: every claim in the token is a snapshot of the past, and the TTL is
+    # how long the system is willing to act on stale facts. See the README.
+    access-token-ttl: PT15M
+    issuer: gkcontas-tenant-auth
+
+logging:
+  level:
+    com.gkcontas.tenantauth: INFO
